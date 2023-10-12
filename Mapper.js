@@ -19,3 +19,11 @@ const mapper = (arr, cb) => {
 
 const newArray = mapper(initialArray, multiplierBy2);
 console.log(newArr);
+
+let ar = [1, 3, 4];
+
+Array.prototype.b = () => {
+  console.log("hello");
+};
+
+ar.b();
