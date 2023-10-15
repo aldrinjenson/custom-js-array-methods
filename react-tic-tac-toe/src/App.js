@@ -24,14 +24,20 @@ export default function Game() {
       </div>
       <div className='game-info'>
         <ol>
-          {history.map((squares, moveIndex) => {
+          {history.map((_sqaures, moveIndex) => {
             let description = "Go to game start";
             if (moveIndex > 0) {
               description = "Go to move #" + moveIndex;
             }
             return (
-              <li>
-                <button onClick={() => jumpTo(moveIndex)}>{description}</button>
+              <li key={moveIndex}>
+                {moveIndex === currentMove ? (
+                  <p>You are now at Move #{moveIndex}</p>
+                ) : (
+                  <button onClick={() => jumpTo(moveIndex)}>
+                    {description}
+                  </button>
+                )}
               </li>
             );
           })}

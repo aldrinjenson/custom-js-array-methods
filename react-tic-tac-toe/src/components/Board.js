@@ -1,43 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
 import Square from "./Square";
 
-export default function Board({ squares, xIsNext, onPlay }) {
-  //   const [squares, setSquares] = useState(Array(9).fill(null));
+const sampleGameBoardRows = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
 
+export default function Board({ squares = [], xIsNext, onPlay }) {
   const handleClick = (i) => {
     if (squares[i] || calculateWinner(squares)) return;
     const newSquares = [...squares];
     newSquares[i] = xIsNext ? "X" : "O";
-    // setXIsNext(!xIsNext);
-    // setSquares(newSquares);
     onPlay(newSquares);
   };
 
   const winner = calculateWinner(squares);
-  let status;
-  if (winner) {
-    status = "Winner: " + winner;
-  } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
-  }
+
+  const getStatus = () => {
+    let status;
+    if (winner) {
+      status = "Winner: " + winner;
+    } else if (squares.every((el) => el)) {
+      status = "Draw Match";
+    } else {
+      status = "Next player: " + (xIsNext ? "X" : "O");
+    }
+    return status;
+  };
+
   return (
     <div>
-      <div className='status'>{status}</div>
-      <div className='board-row'>
-        <Square value={squares[0]} onClick={() => handleClick(0)} />
-        <Square value={squares[1]} onClick={() => handleClick(1)} />
-        <Square value={squares[2]} onClick={() => handleClick(2)} />
-      </div>
-      <div className='board-row'>
-        <Square value={squares[3]} onClick={() => handleClick(3)} />
-        <Square value={squares[4]} onClick={() => handleClick(4)} />
-        <Square value={squares[5]} onClick={() => handleClick(5)} />
-      </div>
-      <div className='board-row'>
-        <Square value={squares[6]} onClick={() => handleClick(6)} />
-        <Square value={squares[7]} onClick={() => handleClick(7)} />
-        <Square value={squares[8]} onClick={() => handleClick(8)} />
-      </div>
+      <div className='status'>{getStatus()}</div>
+      {sampleGameBoardRows.map((row, index) => (
+        <div className='board-row' key={index}>
+          {row.map((col) => (
+            <Square
+              key={col}
+              value={squares[col]}
+              onClick={() => handleClick(col)}
+            />
+          ))}
+        </div>
+      ))}
     </div>
   );
 }
