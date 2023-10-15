@@ -1,9 +1,4 @@
-import {
-  fireEvent,
-  getByDisplayValue,
-  render,
-  screen,
-} from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import Board from "./Board";
 
 describe("Basic rendering of Board", () => {
@@ -18,7 +13,16 @@ describe("Basic rendering of Board", () => {
     const squareButtons = getAllByTestId("square");
     expect(squareButtons).toHaveLength(9);
   });
-  test("Updates status on clicking square", () => {});
+  test("show status msg", () => {
+    const { getByTestId } = render(<Board />);
+    const statusElement = getByTestId("status");
+    expect(statusElement).toHaveTextContent("Next player: X");
+  });
+  test("update status msg on click", () => {
+    const { getByTestId, getAllByTestId } = render(<Board />);
+    const squareElement = getAllByTestId("square")[0];
+    const statusElement = getByTestId("status");
+    fireEvent.click(squareElement);
+    expect(statusElement).toHaveTextContent("Next player: O");
+  });
 });
-
-// describe("Basic functionality of Board", () => {});

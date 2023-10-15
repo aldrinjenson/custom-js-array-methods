@@ -11,7 +11,7 @@ describe("Square views", () => {
   it("Fires the click event when a square is clicked", () => {
     const onClickHandler = jest.fn();
     const { getByTestId } = render(
-      <Square onClick={onClickHandler} value='X' />
+      <Square onSquareClick={onClickHandler} value='X' />
     );
     const squareElement = getByTestId("square");
     fireEvent.click(squareElement);
