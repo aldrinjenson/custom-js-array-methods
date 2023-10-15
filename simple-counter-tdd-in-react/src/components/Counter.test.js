@@ -1,9 +1,4 @@
-import {
-  fireEvent,
-  getByDisplayValue,
-  render,
-  screen,
-} from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Counter from "./Counter";
 
 describe("Basic rendering of Counter", () => {
